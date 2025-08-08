@@ -1717,6 +1717,7 @@ namespace System.Runtime.InteropServices
         public UnmanagedCallersOnlyAttribute() { }
         public System.Type[]? CallConvs;
         public string? EntryPoint;
+        public bool Private;
     }
     [System.AttributeUsageAttribute(System.AttributeTargets.Delegate, AllowMultiple=false, Inherited=false)]
     public sealed partial class UnmanagedFunctionPointerAttribute : System.Attribute

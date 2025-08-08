@@ -77,6 +77,23 @@ namespace ILCompiler
             return null;
         }
 
+        public static bool GetUnmanagedCallersOnlyIsPrivate(this EcmaMethod This)
+        {
+            var decoded = This.GetDecodedCustomAttribute("System.Runtime.InteropServices", "UnmanagedCallersOnlyAttribute");
+            if (decoded == null)
+                return false;
+
+            var decodedValue = decoded.Value;
+
+            foreach (var argument in decodedValue.NamedArguments)
+            {
+                if (argument.Name == "Private")
+                    return (bool)argument.Value!;
+            }
+
+            return false;
+        }
+
 #if !READYTORUN
         /// <summary>
         /// Determine whether a method can go into the sealed vtable of a type. Such method must be a sealed virtual
