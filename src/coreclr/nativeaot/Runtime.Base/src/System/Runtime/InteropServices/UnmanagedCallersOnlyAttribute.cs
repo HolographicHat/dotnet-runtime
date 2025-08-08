@@ -34,6 +34,11 @@ namespace System.Runtime.InteropServices
         /// Optional. If omitted, no named export is emitted during compilation.
         /// </summary>
         public string? EntryPoint;
+
+        /// <summary>
+        /// Optional.
+        /// </summary>
+        public bool Private;
     }
 }
 
