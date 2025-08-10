@@ -215,6 +215,13 @@ static CORINFO_InstructionSet lookupInstructionSet(const char* className)
             return InstructionSet_FMA;
         }
     }
+    else if (className[0] == 'J')
+    {
+        if (strcmp(className, "JitIntrinsic") == 0)
+        {
+            return InstructionSet_X86Base;
+        }
+    }
     else if (className[0] == 'L')
     {
         if (strcmp(className, "Lzcnt") == 0)
@@ -3951,6 +3958,17 @@ GenTree* Compiler::impSpecialIntrinsic(NamedIntrinsic        intrinsic,
             assert(simdSize == 0);
 
             retNode = gtNewScalarHWIntrinsicNode(TYP_VOID, intrinsic);
+            break;
+        }
+
+        case NI_X86Base_ReturnAddress:
+        case NI_X86Base_AddressOfReturnAddress:
+        {
+            assert(sig->numArgs == 0);
+            assert(JITtype2varType(sig->retType) == TYP_I_IMPL);
+            assert(simdSize == 0);
+
+            retNode = gtNewScalarHWIntrinsicNode(TYP_I_IMPL, intrinsic);
             break;
         }
 

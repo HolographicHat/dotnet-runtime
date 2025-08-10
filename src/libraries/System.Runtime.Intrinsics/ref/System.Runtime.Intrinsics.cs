@@ -9162,6 +9162,15 @@ namespace System.Runtime.Intrinsics.X86
             public static new bool IsSupported { get { throw null; } }
         }
     }
+
+    [System.CLSCompliantAttribute(false)]
+    public abstract partial class JitIntrinsic
+    {
+        internal JitIntrinsic() { }
+        public static bool IsSupported { get { throw null; } }
+        public static unsafe void* ReturnAddress() { throw null; }
+        public static unsafe void** AddressOfReturnAddress() => AddressOfReturnAddress();
+    }
 }
 namespace System.Runtime.Intrinsics.Wasm
 {

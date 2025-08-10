@@ -1966,6 +1966,23 @@ void CodeGen::genX86BaseIntrinsic(GenTreeHWIntrinsic* node, insOpts instOptions)
             break;
         }
 
+        case NI_X86Base_ReturnAddress:
+        case NI_X86Base_AddressOfReturnAddress:
+        {
+            assert(node->GetSimdBaseType() == TYP_UNKNOWN);
+            assert(!IsUninitialized(compiler->compCalleeRegsPushed));
+
+            int regsPushed      = compiler->compCalleeRegsPushed + (isFramePointerUsed() ? 1 : 0);
+            int totalFrameSize  = regsPushed * REGSIZE_BYTES + compiler->compLclFrameSize;
+
+            assert(totalFrameSize >= 0);
+            JITDUMP("totalFrameSize: 0x%08X\n", totalFrameSize)
+
+            instruction ins     = intrinsicId == NI_X86Base_ReturnAddress ? INS_mov : INS_lea;
+            GetEmitter()->emitIns_R_AR(ins, EA_PTRSIZE, node->GetRegNum(), REG_SPBASE, totalFrameSize);
+            break;
+        }
+
         default:
             unreached();
             break;
