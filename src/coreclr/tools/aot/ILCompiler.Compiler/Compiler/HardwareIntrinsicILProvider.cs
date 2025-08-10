@@ -37,6 +37,8 @@ namespace ILCompiler
         public override MethodIL GetMethodIL(MethodDesc method)
         {
             TypeDesc owningType = method.OwningType;
+            if (owningType is MetadataType { Name: "JitIntrinsic" }) // skip JitIntrinsic.get_IsSupported
+                return _nestedProvider.GetMethodIL(method);
             string intrinsicId = InstructionSetSupport.GetHardwareIntrinsicId(_context.Target.Architecture, owningType);
             if (!string.IsNullOrEmpty(intrinsicId)
                 && HardwareIntrinsicHelpers.IsIsSupportedMethod(method))
