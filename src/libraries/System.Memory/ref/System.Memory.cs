@@ -221,6 +221,8 @@ namespace System
         public static System.Span<T> AsSpan<T>(this T[]? array, int start) { throw null; }
         public static System.Span<T> AsSpan<T>(this T[]? array, int start, int length) { throw null; }
         public static System.Span<T> AsSpan<T>(this T[]? array, System.Range range) { throw null; }
+        [System.CLSCompliantAttribute(false)]
+        public static unsafe byte* AsPointer(this ReadOnlySpan<byte> span) { throw null; }
         public static int BinarySearch<T>(this System.ReadOnlySpan<T> span, System.IComparable<T> comparable) { throw null; }
         [System.Runtime.CompilerServices.OverloadResolutionPriorityAttribute(-1)]
         public static int BinarySearch<T>(this System.Span<T> span, System.IComparable<T> comparable) { throw null; }

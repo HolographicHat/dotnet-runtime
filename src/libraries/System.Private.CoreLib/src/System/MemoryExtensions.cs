@@ -312,6 +312,12 @@ namespace System
             return new ReadOnlyMemory<char>(text, start, length);
         }
 
+        /// <summary>
+        /// </summary>
+        [CLSCompliant(false)]
+        [MethodImpl(MethodImplOptions.AggressiveInlining)]
+        public static unsafe byte* AsPointer(this ReadOnlySpan<byte> span) => *(byte**) Unsafe.AsPointer(ref span);
+
         /// <inheritdoc cref="Contains{T}(ReadOnlySpan{T}, T)"/>
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
         [OverloadResolutionPriority(-1)]
