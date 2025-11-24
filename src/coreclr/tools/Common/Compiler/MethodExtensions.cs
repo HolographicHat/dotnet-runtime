@@ -77,6 +77,11 @@ namespace ILCompiler
             return null;
         }
 
+        public static bool IsExcludeFromUnmanagedExports(this EcmaMethod This)
+        {
+            return This.GetDecodedCustomAttribute("System.Runtime.InteropServices", "ExcludeFromUnmanagedExportsAttribute") != null;
+        }
+
 #if !READYTORUN
         /// <summary>
         /// Determine whether a method can go into the sealed vtable of a type. Such method must be a sealed virtual
