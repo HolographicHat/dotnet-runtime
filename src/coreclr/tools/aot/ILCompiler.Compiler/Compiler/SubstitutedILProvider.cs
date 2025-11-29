@@ -121,7 +121,7 @@ namespace ILCompiler
                     case 3 when opcode == ILOpcode.call:
                     {
                         var callee = method.GetObject(reader.ReadILToken(), NotFoundBehavior.ReturnNull) as EcmaMethod;
-                        if (callee is { IsAggressiveInlining: true, Name: "AsPointer", OwningType: EcmaType { Name: "MemoryExtensions", Namespace: "System" } })
+                        if (callee is { IsAggressiveInlining: true, Name: "AsPointer", OwningType: EcmaType { Name: "__MemoryExtensions", Namespace: "System" } })
                         {
                             int nopLength = ((ILOpcode)methodBytes[offset]).GetSize() + 10;
                             Span<byte> instBytes = methodBytes.AsSpan().Slice(offset, nopLength);
